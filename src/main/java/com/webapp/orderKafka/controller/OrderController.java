@@ -24,8 +24,15 @@ public class OrderController {
 	}
 	
 	@PostMapping
-	public String sendOrder(@RequestBody Order order) {
+	public String sendOrder(@RequestBody Order order) throws InterruptedException {
 		orderProducer.sendOrder(order);
+		
+		//bulk orders
+		 for (int i = 1; i <= 2; i++) {
+		        Order order1 = new Order(i+"", "Product-" + i, 1000 * i);
+		        Thread.sleep(100); //adding slightly delay
+		        orderProducer.sendOrder(order1);
+		    }
 		
 		return "Order sent successfully!";
 	}

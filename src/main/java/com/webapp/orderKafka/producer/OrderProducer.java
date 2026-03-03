@@ -13,6 +13,7 @@ public class OrderProducer {
 	private KafkaTemplate<String, Order> kafkaTemplate;
 	
 	public  void sendOrder(Order order) {
-		kafkaTemplate.send("orders-topic", order);
+//		kafkaTemplate.send("orders-topic", order);
+		kafkaTemplate.send("orders-topic", order.getOrderId(), order);
 	}
 }
